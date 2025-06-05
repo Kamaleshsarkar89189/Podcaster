@@ -16,6 +16,8 @@ const ProfilePage = ({
     profileId: string;
   };
 }) => {
+  const { user: loggedInUser } = useUser();
+
   const user = useQuery(api.users.getUserById, {
     clerkId: params.profileId,
   });
@@ -25,7 +27,7 @@ const ProfilePage = ({
 
   if (!user || !podcastsData) return <LoaderSpinner />;
 
-  const { user: loggedInUser } = useUser();
+  // const { user: loggedInUser } = useUser();
   const isOwnProfile = loggedInUser?.id === params.profileId;
 
   return (
