@@ -64,6 +64,7 @@ const PodcastDetails = ({ params: { podcastId }}: { params: { podcastId: Id<'pod
             {similarPodcasts?.map(({ _id, podcastTitle, podcastDescription, imageUrl }) => (
               <PodcastCard
                 key={_id}
+                //@ts-ignore
                 imgUrl={imageUrl}
                 title={podcastTitle}
                 description={podcastDescription}

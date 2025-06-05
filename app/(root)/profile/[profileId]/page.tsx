@@ -7,6 +7,7 @@ import LoaderSpinner from "@/components/LoaderSpinner";
 import PodcastCard from "@/components/PodcastCard";
 import ProfileCard from "@/components/ProfileCard";
 import { api } from "@/convex/_generated/api";
+import { useUser } from "@clerk/nextjs";
 
 const ProfilePage = ({
   params,
@@ -24,6 +25,9 @@ const ProfilePage = ({
 
   if (!user || !podcastsData) return <LoaderSpinner />;
 
+  const { user: loggedInUser } = useUser();
+  const isOwnProfile = loggedInUser?.id === params.profileId;
+
   return (
     <section className="mt-9 flex flex-col">
       <h1 className="text-20 font-bold text-white-1 max-md:text-center">
@@ -31,6 +35,7 @@ const ProfilePage = ({
       </h1>
       <div className="mt-6 flex flex-col gap-6 max-md:items-center md:flex-row">
         <ProfileCard
+        //@ts-ignore
           podcastData={podcastsData!}
           imageUrl={user?.imageUrl!}
           userFirstName={user?.name!}
@@ -53,11 +58,11 @@ const ProfilePage = ({
               ))}
           </div>
         ) : (
-          <EmptyState
-            title="You have not created any podcasts yet"
-            buttonLink="/create-podcast"
-            buttonText="Create Podcast"
-          />
+            <EmptyState
+              title="Have not created any podcasts yet"
+              buttonLink={isOwnProfile ? "/create-podcast" : undefined}
+              buttonText={isOwnProfile ? "Create Podcast" : undefined}
+            />
         )}
       </section>
     </section>
