@@ -23,7 +23,7 @@ jobs:
       run: npm install
 
     - name: Disable telemetry
-      run: npx next telemetry disable
+      run: npx update-browserslist-db@latest
 
     - name: Build project
       run: npm run build
