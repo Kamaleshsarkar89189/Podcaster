@@ -24,6 +24,9 @@ jobs:
 
     - name: Install next
       run: npm install next
+
+    - name: Run convex dev
+      run: npx convex dev
   
     - name: Build project
       run: npm run build
